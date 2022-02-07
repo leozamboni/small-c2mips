@@ -32,7 +32,7 @@ struct ctm_scanner
   size_t line;
 };
 
-void ctm_scanner_file(CtmScanner_t ** scanner);
+void scanner_file(CtmScanner_t ** scanner);
 
 void output_list(CtmTokenNode_t * head);
 

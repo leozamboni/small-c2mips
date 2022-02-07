@@ -30,7 +30,7 @@ create(Ctm_t ** ctm)
 void
 compiler(Ctm_t ** ctm)
 {
-  ctm_scanner_file(&(*ctm)->scanner);
+  scanner_file(&(*ctm)->scanner);
   //output_list((*ctm)->scanner->list->head);
   parser(&(*ctm)->parser, (*ctm)->scanner->list->head);
   //print_ast((*ctm)->parser->ast->head);

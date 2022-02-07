@@ -11,7 +11,7 @@ list_eat(CtmTokenNode_t ** node, TokenType_t type)
 {
   if ((*node)->token.type != type)
     {
-      ctm_parser_error((*node)->token);
+      parser_error((*node)->token);
     }
   (*node) = (*node)->next;
 }
@@ -62,11 +62,11 @@ parser_parse_arg(CtmTokenNode_t ** head)
     {
       list_eat(&(*head), (*head)->token.type);
       if ((*head)->token.type == LPAREN_TK && (*head)->prior->token.type != VOID_TK)
-        ctm_parser_error((*head)->prior->token);
+        parser_error((*head)->prior->token);
     }
   else
     {
-      ctm_parser_error((*head)->token);
+      parser_error((*head)->token);
     }
 
   node->next = parser_parse_arg(&(*head));
@@ -93,7 +93,7 @@ parser_parse_block(CtmTokenNode_t ** head)
       node = parser_parse_return(&(*head));
       break;
     default:
-      ctm_parser_error((*head)->token);
+      parser_error((*head)->token);
     }
 
   list_eat(&(*head), (*head)->token.type);
@@ -136,7 +136,7 @@ parser_parse_id(CtmTokenNode_t ** head)
     }
   else
     {
-      ctm_parser_error((*head)->token);
+      parser_error((*head)->token);
     }
 
   return node;

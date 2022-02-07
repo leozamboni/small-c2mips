@@ -35,13 +35,13 @@ output_list(CtmTokenNode_t * head)
 }
 
 void
-ctm_scanner_tokenizer(CtmScanner_t ** scanner, char * value)
+scanner_tokenizer(CtmScanner_t ** scanner, char * value)
 {
   push_list(&(*scanner)->list, ctm_token(value, (*scanner)->line));
 }
 
 void
-ctm_scanenr_number(CtmScanner_t ** scanner)
+scanenr_number(CtmScanner_t ** scanner)
 {
 
   char * value = calloc(1, sizeof(char));
@@ -56,11 +56,11 @@ ctm_scanenr_number(CtmScanner_t ** scanner)
     }
   while (isdigit((*scanner)->c));
 
-  ctm_scanner_tokenizer(&(*scanner), value);
+  scanner_tokenizer(&(*scanner), value);
 }
 
 void
-ctm_scanenr_alph(CtmScanner_t ** scanner)
+scanenr_alph(CtmScanner_t ** scanner)
 {
   char * value = calloc(1, sizeof(char));
   do
@@ -74,11 +74,11 @@ ctm_scanenr_alph(CtmScanner_t ** scanner)
     }
   while (isalpha((*scanner)->c));
 
-  ctm_scanner_tokenizer(&(*scanner), value);
+  scanner_tokenizer(&(*scanner), value);
 }
 
 void
-ctm_scanner_file(CtmScanner_t ** scanner)
+scanner_file(CtmScanner_t ** scanner)
 {
   (*scanner)->line = 1;
   while (((*scanner)->c = fgetc((*scanner)->fl)) != EOF)
@@ -86,12 +86,12 @@ ctm_scanner_file(CtmScanner_t ** scanner)
 
       if (isalpha((*scanner)->c))
         {
-          ctm_scanenr_alph(&(*scanner));
+          scanenr_alph(&(*scanner));
         }
 
       if (isdigit((*scanner)->c))
         {
-          ctm_scanenr_number(&(*scanner));
+          scanenr_number(&(*scanner));
         }
 
       if ((*scanner)->c == '\t' || (*scanner)->c == ' ') continue;
@@ -99,29 +99,29 @@ ctm_scanner_file(CtmScanner_t ** scanner)
       switch ((*scanner)->c)
         {
         case '\n':
-          ctm_scanner_tokenizer(&(*scanner), "\n");
+          scanner_tokenizer(&(*scanner), "\n");
           (*scanner)->line++;
           break;
         case ',':
-          ctm_scanner_tokenizer(&(*scanner), ",");
+          scanner_tokenizer(&(*scanner), ",");
           break;
         case '{':
-          ctm_scanner_tokenizer(&(*scanner), "{");
+          scanner_tokenizer(&(*scanner), "{");
           break;
         case '}':
-          ctm_scanner_tokenizer(&(*scanner), "}");
+          scanner_tokenizer(&(*scanner), "}");
           break;
         case '(':
-          ctm_scanner_tokenizer(&(*scanner), "(");
+          scanner_tokenizer(&(*scanner), "(");
           break;
         case ')':
-          ctm_scanner_tokenizer(&(*scanner), ")");
+          scanner_tokenizer(&(*scanner), ")");
           break;
         case ';':
-          ctm_scanner_tokenizer(&(*scanner), ";");
+          scanner_tokenizer(&(*scanner), ";");
           break;
         default:
-          ctm_scanner_error((*scanner)->c);
+          scanner_error((*scanner)->c);
         }
     }
 }
