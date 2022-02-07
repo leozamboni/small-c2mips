@@ -22,6 +22,7 @@ parser_parse_exp(CowTokenNode_t ** head)
   if ((*head)->token.type == SEMICOLON_TK) return NULL;
 
   CowAstNode_t * node = init_node((*head)->token);
+	node->type = EXP;
 
   list_eat(&(*head), (*head)->token.type);
 
@@ -34,6 +35,7 @@ CowAstNode_t *
 parser_parse_return(CowTokenNode_t ** head)
 {
   CowAstNode_t * node = init_node((*head)->token);
+	node->type = RET;
 
   list_eat(&(*head), RETURN_TK);
 
@@ -48,6 +50,7 @@ parser_parse_arg(CowTokenNode_t ** head)
   if ((*head)->token.type == LPAREN_TK) return NULL;
 
   CowAstNode_t * node = init_node((*head)->token);
+  node->type = ARG;
 
   if (is_dtype((*head)->prior->token.type))
     {
@@ -115,6 +118,8 @@ parser_parse_id(CowTokenNode_t ** head)
 
   if ((*head)->token.type == RPAREN_TK)
     {
+			node->type = FUNC;
+
       list_eat(&(*head), RPAREN_TK);
 
       node->next = parser_parse_arg(&(*head));
@@ -126,6 +131,8 @@ parser_parse_id(CowTokenNode_t ** head)
     }
   else if ((*head)->token.type == EQUAL_TK)
     {
+		  node->type = ASSIG;
+
       list_eat(&(*head), EQUAL_TK);
 
       node->right = parser_parse_exp(&(*head));

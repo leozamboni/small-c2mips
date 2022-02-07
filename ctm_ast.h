@@ -7,6 +7,14 @@ typedef struct ctm_ast_node CowAstNode_t;
 
 struct ctm_ast_node
 {
+	enum {
+		EXP,
+		CALL,
+		ARG, 
+		RET,
+		ASSIG,
+		FUNC,
+	}type;
   char * value;
   TokenType_t dtype;
   CowAstNode_t * next;
