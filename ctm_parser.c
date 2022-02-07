@@ -7,7 +7,7 @@
 #include <string.h>
 
 void
-list_eat(CowTokenNode_t ** node, TokenType_t type)
+list_eat(CtmTokenNode_t ** node, TokenType_t type)
 {
   if ((*node)->token.type != type)
     {
@@ -16,13 +16,13 @@ list_eat(CowTokenNode_t ** node, TokenType_t type)
   (*node) = (*node)->next;
 }
 
-CowAstNode_t *
-parser_parse_exp(CowTokenNode_t ** head)
+CtmAstNode_t *
+parser_parse_exp(CtmTokenNode_t ** head)
 {
   if ((*head)->token.type == SEMICOLON_TK) return NULL;
 
-  CowAstNode_t * node = init_node((*head)->token);
-	node->type = EXP;
+  CtmAstNode_t * node = init_node((*head)->token);
+  node->type = EXP;
 
   list_eat(&(*head), (*head)->token.type);
 
@@ -31,11 +31,11 @@ parser_parse_exp(CowTokenNode_t ** head)
   return node;
 }
 
-CowAstNode_t *
-parser_parse_return(CowTokenNode_t ** head)
+CtmAstNode_t *
+parser_parse_return(CtmTokenNode_t ** head)
 {
-  CowAstNode_t * node = init_node((*head)->token);
-	node->type = RET;
+  CtmAstNode_t * node = init_node((*head)->token);
+  node->type = RET;
 
   list_eat(&(*head), RETURN_TK);
 
@@ -44,12 +44,12 @@ parser_parse_return(CowTokenNode_t ** head)
   return node;
 }
 
-CowAstNode_t *
-parser_parse_arg(CowTokenNode_t ** head)
+CtmAstNode_t *
+parser_parse_arg(CtmTokenNode_t ** head)
 {
   if ((*head)->token.type == LPAREN_TK) return NULL;
 
-  CowAstNode_t * node = init_node((*head)->token);
+  CtmAstNode_t * node = init_node((*head)->token);
   node->type = ARG;
 
   if (is_dtype((*head)->prior->token.type))
@@ -74,13 +74,13 @@ parser_parse_arg(CowTokenNode_t ** head)
   return node;
 }
 
-CowAstNode_t *
-parser_parse_block(CowTokenNode_t ** head)
+CtmAstNode_t *
+parser_parse_block(CtmTokenNode_t ** head)
 {
   if ((*head)->token.type == LBRACE_TK) return NULL;
 
-  CowAstNode_t * node = NULL;
-  node = malloc(sizeof(CowAstNode_t));
+  CtmAstNode_t * node = NULL;
+  node = malloc(sizeof(CtmAstNode_t));
 
   if ((*head)->token.type == LINEFEED_TK)
     {
@@ -103,22 +103,17 @@ parser_parse_block(CowTokenNode_t ** head)
   return node;
 }
 
-CowAstNode_t *
-parser_parse_id(CowTokenNode_t ** head)
+CtmAstNode_t *
+parser_parse_id(CtmTokenNode_t ** head)
 {
-  CowAstNode_t * node = init_node((*head)->token);
+  CtmAstNode_t * node = init_node((*head)->token);
   node->left = init_node((*head)->prior->token);
 
-  if ((*head)->token.type == MAIN_TK)
-    {
-      (*head)->token.type = IDENTIFIER_TK;
-    }
-
-  list_eat(&(*head), IDENTIFIER_TK);
+  list_eat(&(*head), (*head)->token.type == MAIN_TK ? MAIN_TK : IDENTIFIER_TK);
 
   if ((*head)->token.type == RPAREN_TK)
     {
-			node->type = FUNC;
+      node->type = (*head)->prior->token.type == MAIN_TK ? MAIN : CALL;
 
       list_eat(&(*head), RPAREN_TK);
 
@@ -131,7 +126,7 @@ parser_parse_id(CowTokenNode_t ** head)
     }
   else if ((*head)->token.type == EQUAL_TK)
     {
-		  node->type = ASSIG;
+      node->type = ASSIG;
 
       list_eat(&(*head), EQUAL_TK);
 
@@ -148,13 +143,13 @@ parser_parse_id(CowTokenNode_t ** head)
 }
 
 void
-parser (CowParser_t ** parser, CowTokenNode_t * head)
+parser (CtmParser_t ** parser, CtmTokenNode_t * head)
 {
   add_ast(&(*parser)->ast, parser_parse_id(&head->next));
 }
 
 void
-print_ast_node(CowAstNode_t * ast)
+print_ast_node(CtmAstNode_t * ast)
 {
   if (!ast) return;
   print_ast_node(ast->left);
@@ -165,7 +160,7 @@ print_ast_node(CowAstNode_t * ast)
 }
 
 void
-print_ast(CowExpList_t * head)
+print_ast(CtmExpList_t * head)
 {
   if (!head) return;
   print_ast_node(head->ast);

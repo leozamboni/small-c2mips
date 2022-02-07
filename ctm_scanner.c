@@ -7,9 +7,9 @@
 #include <ctype.h>
 
 void
-push_list(CowTokenList_t ** list, Token_t t)
+push_list(CtmTokenList_t ** list, Token_t t)
 {
-  CowTokenNode_t * node = malloc(sizeof(CowTokenNode_t));
+  CtmTokenNode_t * node = malloc(sizeof(CtmTokenNode_t));
   node->token = t;
   node->next = NULL;
   node->prior = (*list)->current;
@@ -25,7 +25,7 @@ push_list(CowTokenList_t ** list, Token_t t)
 }
 
 void
-output_list(CowTokenNode_t * head)
+output_list(CtmTokenNode_t * head)
 {
   if (!head) return;
 
@@ -35,13 +35,13 @@ output_list(CowTokenNode_t * head)
 }
 
 void
-ctm_scanner_tokenizer(CowScanner_t ** scanner, char * value)
+ctm_scanner_tokenizer(CtmScanner_t ** scanner, char * value)
 {
   push_list(&(*scanner)->list, ctm_token(value, (*scanner)->line));
 }
 
 void
-ctm_scanenr_number(CowScanner_t ** scanner)
+ctm_scanenr_number(CtmScanner_t ** scanner)
 {
 
   char * value = calloc(1, sizeof(char));
@@ -60,7 +60,7 @@ ctm_scanenr_number(CowScanner_t ** scanner)
 }
 
 void
-ctm_scanenr_alph(CowScanner_t ** scanner)
+ctm_scanenr_alph(CtmScanner_t ** scanner)
 {
   char * value = calloc(1, sizeof(char));
   do
@@ -78,7 +78,7 @@ ctm_scanenr_alph(CowScanner_t ** scanner)
 }
 
 void
-ctm_scanner_file(CowScanner_t ** scanner)
+ctm_scanner_file(CtmScanner_t ** scanner)
 {
   (*scanner)->line = 1;
   while (((*scanner)->c = fgetc((*scanner)->fl)) != EOF)

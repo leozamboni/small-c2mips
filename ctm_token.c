@@ -102,7 +102,7 @@ ctm_token(char * value, size_t line)
   strcpy(token.value, value);
   token.line = line;
   token.type = ctm_token_typer(token);
-  printf("%zu:%d:\"%s\"\n", line, token.type, value);
+// printf("%zu:%d:\"%s\"\n", line, token.type, value);
   return token;
 }
 

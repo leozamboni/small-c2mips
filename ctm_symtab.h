@@ -3,7 +3,7 @@
 
 #include "ctm_token.h"
 
-typedef struct symbol_table CowSymTab_t;
+typedef struct symbol_table CtmSymTab_t;
 
 struct symbol_table
 {

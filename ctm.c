@@ -6,7 +6,7 @@
 void
 ctm(FILE * fl)
 {
-  Cow_t * ctm;
+  Ctm_t * ctm;
   create(&ctm);
   ctm->scanner->fl = fl;
 
@@ -14,25 +14,25 @@ ctm(FILE * fl)
 }
 
 void
-create(Cow_t ** ctm)
+create(Ctm_t ** ctm)
 {
-  (*ctm) = malloc(sizeof(Cow_t));
-  (*ctm)->scanner = malloc(sizeof(CowScanner_t));
-  (*ctm)->scanner->list = malloc(sizeof(CowTokenList_t));
+  (*ctm) = malloc(sizeof(Ctm_t));
+  (*ctm)->scanner = malloc(sizeof(CtmScanner_t));
+  (*ctm)->scanner->list = malloc(sizeof(CtmTokenList_t));
   (*ctm)->scanner->list->head = NULL;
   (*ctm)->scanner->list->current = NULL;
-  (*ctm)->parser = malloc(sizeof(CowParser_t));
-  (*ctm)->parser->ast = malloc(sizeof(CowAst_t));
+  (*ctm)->parser = malloc(sizeof(CtmParser_t));
+  (*ctm)->parser->ast = malloc(sizeof(CtmAst_t));
   (*ctm)->parser->ast->current = NULL;
   (*ctm)->parser->ast->head = NULL;
 }
 
 void
-compiler(Cow_t ** ctm)
+compiler(Ctm_t ** ctm)
 {
   ctm_scanner_file(&(*ctm)->scanner);
-  output_list((*ctm)->scanner->list->head);
+  //output_list((*ctm)->scanner->list->head);
   parser(&(*ctm)->parser, (*ctm)->scanner->list->head);
-  puts("");
-  print_ast((*ctm)->parser->ast->head);
+  //print_ast((*ctm)->parser->ast->head);
+  code_gen((*ctm)->parser->ast);
 }

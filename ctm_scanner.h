@@ -5,35 +5,35 @@
 
 #include <stdio.h>
 
-typedef struct ctm_token_node CowTokenNode_t;
+typedef struct ctm_token_node CtmTokenNode_t;
 
 struct ctm_token_node
 {
-  CowTokenNode_t * next;
+  CtmTokenNode_t * next;
   Token_t token;
-  CowTokenNode_t * prior;
+  CtmTokenNode_t * prior;
 };
 
-typedef struct ctm_token_list CowTokenList_t;
+typedef struct ctm_token_list CtmTokenList_t;
 
 struct ctm_token_list
 {
-  CowTokenNode_t * head;
-  CowTokenNode_t * current;
+  CtmTokenNode_t * head;
+  CtmTokenNode_t * current;
 };
 
-typedef struct ctm_scanner CowScanner_t;
+typedef struct ctm_scanner CtmScanner_t;
 
 struct ctm_scanner
 {
-  CowTokenList_t * list;
+  CtmTokenList_t * list;
   FILE * fl;
   int c;
   size_t line;
 };
 
-void ctm_scanner_file(CowScanner_t ** scanner);
+void ctm_scanner_file(CtmScanner_t ** scanner);
 
-void output_list(CowTokenNode_t * head);
+void output_list(CtmTokenNode_t * head);
 
 #endif
