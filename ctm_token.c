@@ -133,72 +133,72 @@ get_token_string(TokenType_t tk)
 {
   switch (tk)
     {
-  		case VOID_TK:
-				return "VOID";
-			case SEMICOLON_TK:
-				return "SEMICOLON";
-		  case KEYWORD_TK:
-				return "KEYWORD";
-  		case LPAREN_TK:
-				return "LPAREN";
-  		case RPAREN_TK:
-				return "RPAREN";
-  		case LBRACE_TK:
-				return "LBRACE";
-  		case RBRACE_TK:
-				return "RBRADE";
-  		case STRING_TK:
-				return "STRING";
-  		case CONSTANT_TK:
-				return "CONSTANT";
-  		case SPECIAL_TK:
-				return "SPECIAL";
-  		case IDENTIFIER_TK:
-				return "IDENTIFIER";
-  		case LINEFEED_TK:
-				return "LINEFEED";
-  		case ENDOFFILE_TK:
-				return "ENDOFFILE";
-  		case ASSIGNMENT_TK:
-				return "ASSIGNMENT";
-  		case INT_TK:
-				return "INT";
-  		case MAIN_TK:
-				return "MAIN";
-  		case PLUS_TK:
-				return "PLUS";
-  		case MINUS_TK:
-				return "MINUS";
- 	 		case DIV_TK:
-				return "DIV";
-  		case MULT_TK:
-				return "MULT";
-  		case EQUAL_TK:
-				return "EQUAL";
-  		case EQUAL_TO_TK:
-				return "EQUAL TO";
-  		case COMMA_TK:
-				return "COMMA";
-  		case AND_ADDR_TK:
-				return "AND ADDR";
-  		case AND_TK:
-				return "AND";
-  		case OR_TK:
-				return "OR";
-  		case LT_TK:
-				return "LT";
-  		case LT_EQUAL_TK:
-				return "LT EQUAL";
-  		case GT_TK:
-				return "GT";
-  		case GT_EQUAL_TK:
-				return "GT EQUAL";
-  		case NOT_TK:
-				return "NOT";
-  		case NOT_EQUAL_TK:
-				return "NOT EQUAL";
-  		case RETURN_TK:
-				return "RETURN";
+    case VOID_TK:
+      return "VOID";
+    case SEMICOLON_TK:
+      return "SEMICOLON";
+    case KEYWORD_TK:
+      return "KEYWORD";
+    case LPAREN_TK:
+      return "LPAREN";
+    case RPAREN_TK:
+      return "RPAREN";
+    case LBRACE_TK:
+      return "LBRACE";
+    case RBRACE_TK:
+      return "RBRADE";
+    case STRING_TK:
+      return "STRING";
+    case CONSTANT_TK:
+      return "CONSTANT";
+    case SPECIAL_TK:
+      return "SPECIAL";
+    case IDENTIFIER_TK:
+      return "IDENTIFIER";
+    case LINEFEED_TK:
+      return "LINEFEED";
+    case ENDOFFILE_TK:
+      return "ENDOFFILE";
+    case ASSIGNMENT_TK:
+      return "ASSIGNMENT";
+    case INT_TK:
+      return "INT";
+    case MAIN_TK:
+      return "MAIN";
+    case PLUS_TK:
+      return "PLUS";
+    case MINUS_TK:
+      return "MINUS";
+    case DIV_TK:
+      return "DIV";
+    case MULT_TK:
+      return "MULT";
+    case EQUAL_TK:
+      return "EQUAL";
+    case EQUAL_TO_TK:
+      return "EQUAL TO";
+    case COMMA_TK:
+      return "COMMA";
+    case AND_ADDR_TK:
+      return "AND ADDR";
+    case AND_TK:
+      return "AND";
+    case OR_TK:
+      return "OR";
+    case LT_TK:
+      return "LT";
+    case LT_EQUAL_TK:
+      return "LT EQUAL";
+    case GT_TK:
+      return "GT";
+    case GT_EQUAL_TK:
+      return "GT EQUAL";
+    case NOT_TK:
+      return "NOT";
+    case NOT_EQUAL_TK:
+      return "NOT EQUAL";
+    case RETURN_TK:
+      return "RETURN";
     default:
       break;
     }
