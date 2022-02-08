@@ -16,5 +16,7 @@ void parser (CtmParser_t ** parser, CtmTokenNode_t * head);
 void
 print_ast(CtmExpList_t * head);
 
+CtmAstNode_t *
+parser_parse_id(CtmTokenNode_t ** head);
 
 #endif

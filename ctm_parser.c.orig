@@ -23,61 +23,63 @@ parser_parse_exp(CtmTokenNode_t ** head)
 
   CtmAstNode_t * node = init_node((*head)->token);
   node->type = EXP;
+	printf("exp %s\n",(*head)->token.value);
 
-  if ((*head)->prior->token.type == EQUAL_TK)
-    {
-      if ((*head)->token.type == RPAREN_TK)
-        {
-          while ((*head)->token.type != LPAREN_TK)
-            {
-              if ((*head)->token.type == SEMICOLON_TK)
-                {
-                  parser_error((*head)->token);
-                }
-              if ((*head)->prior->token.type == RPAREN_TK || is_operator((*head)->prior->token.type))
-                {
-                  list_eat(&(*head), (*head)->token.type == IDENTIFIER_TK ? IDENTIFIER_TK : CONSTANT_TK);
-                }
-              if ((*head)->prior->token.type == CONSTANT_TK || (*head)->prior->token.type == IDENTIFIER_TK)
-                {
-                  if (!is_operator((*head)->token.type))
-                    {
-                      parser_error((*head)->token);
-                    }
-                  list_eat(&(*head), (*head)->token.type);
-                }
-            }
-          list_eat(&(*head), LPAREN_TK);
-        }
-      else
-        {
-          list_eat(&(*head), (*head)->token.type == IDENTIFIER_TK ? IDENTIFIER_TK : CONSTANT_TK);
-        }
-    }
-  else if ((*head)->prior->token.type == LPAREN_TK)
-    {
-      if (!is_operator((*head)->token.type))
-        {
-          parser_error((*head)->token);
-        }
-      list_eat(&(*head), (*head)->token.type);
-    }
-  else if (is_operator((*head)->prior->token.type))
-    {
-      list_eat(&(*head), (*head)->token.type == IDENTIFIER_TK ? IDENTIFIER_TK : CONSTANT_TK);
-    }
-  else if ((*head)->prior->token.type == CONSTANT_TK || (*head)->prior->token.type == IDENTIFIER_TK)
-    {
-      if (!is_operator((*head)->token.type))
-        {
-          parser_error((*head)->token);
-        }
-      list_eat(&(*head), (*head)->token.type);
-    }
-  else
-    {
-      list_eat(&(*head), (*head)->token.type == IDENTIFIER_TK ? IDENTIFIER_TK : CONSTANT_TK);
-    }
+	if ((*head)->prior->token.type == EQUAL_TK)
+	{
+	 if ((*head)->token.type == RPAREN_TK)
+		{
+			while ((*head)->token.type != LPAREN_TK)
+			{
+				if ((*head)->token.type == SEMICOLON_TK)
+				{
+					parser_error((*head)->token);
+				}
+				if ((*head)->prior->token.type == RPAREN_TK || is_operator((*head)->prior->token.type))
+				{
+							list_eat(&(*head), (*head)->token.type == IDENTIFIER_TK ? IDENTIFIER_TK : CONSTANT_TK);
+				}
+				if ((*head)->prior->token.type == CONSTANT_TK || (*head)->prior->token.type == IDENTIFIER_TK)
+				{
+						if (!is_operator((*head)->token.type)) 
+						{
+							parser_error((*head)->token);
+						}
+						list_eat(&(*head), (*head)->token.type);
+				}
+			}
+			list_eat(&(*head), LPAREN_TK);
+		}
+		else 
+		{
+			list_eat(&(*head), (*head)->token.type == IDENTIFIER_TK ? IDENTIFIER_TK : CONSTANT_TK);
+		}
+	}
+	else if ((*head)->prior->token.type == LPAREN_TK)
+		{
+			if (!is_operator((*head)->token.type))
+			{
+				parser_error((*head)->token);
+			}
+			list_eat(&(*head), (*head)->token.type);
+	}
+	else if (is_operator((*head)->prior->token.type))
+	{
+			list_eat(&(*head), (*head)->token.type == IDENTIFIER_TK ? IDENTIFIER_TK : CONSTANT_TK);
+	}	
+	else if ((*head)->prior->token.type == CONSTANT_TK || (*head)->prior->token.type == IDENTIFIER_TK)
+		{
+			if (!is_operator((*head)->token.type)) 
+			{
+							parser_error((*head)->token);
+		 	 }
+			list_eat(&(*head), (*head)->token.type);
+		} 
+		else 
+		{
+			list_eat(&(*head), (*head)->token.type == IDENTIFIER_TK ? IDENTIFIER_TK : CONSTANT_TK);
+		}
+
 
   node->right = parser_parse_exp(&(*head));
 
@@ -135,23 +137,27 @@ parser_parse_block(CtmTokenNode_t ** head)
   CtmAstNode_t * node = NULL;
   node = malloc(sizeof(CtmAstNode_t));
 
-  if (is_dtype((*head)->token.type))
-    {
-      list_eat(&(*head), (*head)->token.type);
-    }
+	if (is_dtype((*head)->token.type))
+	{
+	 	list_eat(&(*head), (*head)->token.type);
+	}
+
+	printf("block %s\n", (*head)->token.value);
 
   switch ((*head)->token.type)
     {
     case RETURN_TK:
+			puts("passou aqui RETURN");
       node = parser_parse_return(&(*head));
       break;
-    case IDENTIFIER_TK:
-      node = parser_parse_id(&(*head));
-      break;
+		case IDENTIFIER_TK:
+			node = parser_parse_id(&(*head));
+			break;
     default:
-      list_eat(&(*head), (*head)->token.type);
-      break;
+ 			list_eat(&(*head), (*head)->token.type);
+			break;
     }
+
 
   node->left = parser_parse_block(&(*head));
 
@@ -181,6 +187,7 @@ parser_parse_id(CtmTokenNode_t ** head)
     }
   else if ((*head)->token.type == EQUAL_TK)
     {
+		puts("passou aqui ID");
       node->type = ASSIG;
       list_eat(&(*head), EQUAL_TK);
 
