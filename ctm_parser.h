@@ -11,12 +11,12 @@ struct parser
   CtmAst_t * ast;
 };
 
-void parser (CtmParser_t ** parser, CtmTokenNode_t * head);
+void parser (CtmParser_t **, CtmTokenNode_t *);
 
 void
-print_ast(CtmExpList_t * head);
+print_ast(CtmExpList_t *);
 
 CtmAstNode_t *
-parser_parse_id(CtmTokenNode_t ** head);
+parser_parse_id(CtmTokenNode_t **);
 
 #endif

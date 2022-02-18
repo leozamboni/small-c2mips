@@ -42,9 +42,9 @@ struct ctm_ast
 };
 
 void
-add_ast(CtmAst_t ** ast, CtmAstNode_t * node);
+add_ast(CtmAst_t **, CtmAstNode_t *);
 
 CtmAstNode_t *
-init_node(Token_t token);
+init_node(Token_t);
 
 #endif

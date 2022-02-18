@@ -51,14 +51,14 @@ struct token
   TokenType_t type;
 };
 
-Token_t ctm_token(char * value, size_t line);
+Token_t ctm_token(char *, size_t);
 
-char * get_token_string(TokenType_t tk);
-
-_Bool
-is_dtype(TokenType_t tk);
+char * get_token_string(TokenType_t);
 
 _Bool
-is_operator(TokenType_t tk);
+is_dtype(TokenType_t);
+
+_Bool
+is_operator(TokenType_t);
 
 #endif

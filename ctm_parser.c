@@ -1,5 +1,6 @@
 #include "ctm_scanner.h"
 #include "ctm_parser.h"
+#include "ctm_symtab.h"
 #include "ctm_error_handling.h"
 
 #include <stdio.h>
@@ -163,6 +164,8 @@ parser_parse_id(CtmTokenNode_t ** head)
 {
   CtmAstNode_t * node = init_node((*head)->token);
   node->typeP = init_node((*head)->prior->token);
+
+//  insert_symtab(&symtab, (*head)->token.type, (*head)->token.value);
 
   list_eat(&(*head), (*head)->token.type == MAIN_TK ? MAIN_TK : IDENTIFIER_TK);
 

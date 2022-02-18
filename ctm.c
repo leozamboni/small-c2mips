@@ -21,6 +21,8 @@ create(Ctm_t ** ctm)
   (*ctm)->scanner->list = malloc(sizeof(CtmTokenList_t));
   (*ctm)->scanner->list->head = NULL;
   (*ctm)->scanner->list->current = NULL;
+  (*ctm)->symtab = malloc(sizeof(CtmSymtab_t));
+  (*ctm)->symtab->next = NULL;
   (*ctm)->parser = malloc(sizeof(CtmParser_t));
   (*ctm)->parser->ast = malloc(sizeof(CtmAst_t));
   (*ctm)->parser->ast->current = NULL;

@@ -4,6 +4,6 @@
 #include "ctm_ast.h"
 
 void
-code_gen(CtmAst_t * ast);
+code_gen(CtmAst_t *);
 
 #endif

@@ -4,9 +4,9 @@
 #include "ctm_token.h"
 
 void
-parser_error(Token_t token);
+parser_error(Token_t);
 
 void
-scanner_error(int c);
+scanner_error(int);
 
 #endif
