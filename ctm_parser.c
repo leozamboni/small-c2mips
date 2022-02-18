@@ -162,7 +162,7 @@ CtmAstNode_t *
 parser_parse_id(CtmTokenNode_t ** head)
 {
   CtmAstNode_t * node = init_node((*head)->token);
-  node->left = init_node((*head)->prior->token);
+  node->typeP = init_node((*head)->prior->token);
 
   list_eat(&(*head), (*head)->token.type == MAIN_TK ? MAIN_TK : IDENTIFIER_TK);
 
@@ -178,6 +178,9 @@ parser_parse_id(CtmTokenNode_t ** head)
       list_eat(&(*head), RBRACE_TK);
 
       node->right = parser_parse_block(&(*head));
+
+      list_eat(&(*head), LBRACE_TK);
+      //printf("-> ->%s\n", (*head)->token.value);
     }
   else if ((*head)->token.type == EQUAL_TK)
     {
@@ -206,11 +209,12 @@ void
 print_ast_node(CtmAstNode_t * ast)
 {
   if (!ast) return;
-  print_ast_node(ast->left);
+  print_ast_node(ast->typeP);
   if (ast->value) printf("%s\n", ast->value);
   else printf("%s\n", get_token_string(ast->dtype));
   print_ast_node(ast->next);
   print_ast_node(ast->right);
+  print_ast_node(ast->left);
 }
 
 void

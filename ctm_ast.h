@@ -20,6 +20,7 @@ struct ctm_ast_node
   char * value;
   TokenType_t dtype;
   CtmAstNode_t * next;
+  CtmAstNode_t * typeP;
   CtmAstNode_t * left;
   CtmAstNode_t * right;
 };

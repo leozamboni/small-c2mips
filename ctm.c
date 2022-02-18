@@ -33,6 +33,8 @@ compiler(Ctm_t ** ctm)
   scanner_file(&(*ctm)->scanner);
   //output_list((*ctm)->scanner->list->head);
   parser(&(*ctm)->parser, (*ctm)->scanner->list->head);
+  puts("");
   print_ast((*ctm)->parser->ast->head);
+  puts("");
   code_gen((*ctm)->parser->ast);
 }

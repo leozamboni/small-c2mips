@@ -32,8 +32,8 @@ code_gen_main(CtmAstNode_t * ast)
         }
     }
 
-  code_gen_main(ast->next);
   code_gen_main(ast->right);
+  code_gen_main(ast->next);
 }
 
 void
