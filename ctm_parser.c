@@ -180,7 +180,6 @@ parser_parse_id(CtmTokenNode_t ** head)
       node->right = parser_parse_block(&(*head));
 
       list_eat(&(*head), LBRACE_TK);
-      //printf("-> ->%s\n", (*head)->token.value);
     }
   else if ((*head)->token.type == EQUAL_TK)
     {
