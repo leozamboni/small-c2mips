@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 
+/* need refactor */
 void
 code_gen_main(CtmAstNode_t * ast, size_t saved_regs)
 {
@@ -18,7 +19,7 @@ code_gen_main(CtmAstNode_t * ast, size_t saved_regs)
       CtmAstNode_t * aux = ast;
       while (aux->type != ARG)
         {
-          printf("mov $t%zu, 0\n", regI++);
+          printf("a - mov $t%zu, 0\n", regI++);
           if (regI == 7) break;
           aux = aux->next;
         }
@@ -26,7 +27,7 @@ code_gen_main(CtmAstNode_t * ast, size_t saved_regs)
   else if (ast->type == ASSIG)
     {
       ast = ast->right;
-      printf("li $s%zu, 0\n", saved_regs);
+      printf("li $s%zu, %s\n", saved_regs, ast->value);
     }
   else if (ast->type == EXP)
     {
@@ -35,9 +36,14 @@ code_gen_main(CtmAstNode_t * ast, size_t saved_regs)
           ast = ast->right;
           printf("addi $s%zu, $s%zu, %s\n", saved_regs, saved_regs, ast->value);
         }
+      else if (ast->dtype == MULT_TK)
+        {
+          ast = ast->right;
+          printf("mul $s%zu, $s%zu, %s\n", saved_regs, saved_regs, ast->value);
+        }
       else
         {
-          printf("li $s%zu, %s\n", saved_regs, ast->value);
+          printf("EXPRESSION NOT FOUND\n");
         }
     }
   else if (ast->type == RET)

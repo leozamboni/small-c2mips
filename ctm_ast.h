@@ -9,6 +9,7 @@ struct ctm_ast_node
 {
   enum
   {
+    TYPE,
     EXP,
     CALL,
     ARG,
