@@ -18,7 +18,7 @@ list_eat(CtmTokenNode_t ** node, TokenType_t type)
 }
 
 CtmAstNode_t *
-parser_parse_exp(CtmTokenNode_t ** head)
+parser_parse_exp(CtmTokenNode_t ** head, CtmSymtab_t ** symtab)
 {
   if ((*head)->token.type == SEMICOLON_TK) return NULL;
 
@@ -80,26 +80,26 @@ parser_parse_exp(CtmTokenNode_t ** head)
       list_eat(&(*head), (*head)->token.type == IDENTIFIER_TK ? IDENTIFIER_TK : CONSTANT_TK);
     }
 
-  node->right = parser_parse_exp(&(*head));
+  node->right = parser_parse_exp(&(*head), &(*symtab));
 
   return node;
 }
 
 CtmAstNode_t *
-parser_parse_return(CtmTokenNode_t ** head)
+parser_parse_return(CtmTokenNode_t ** head, CtmSymtab_t ** symtab)
 {
   CtmAstNode_t * node = init_node((*head)->token);
   node->type = RET;
 
   list_eat(&(*head), RETURN_TK);
 
-  node->right = parser_parse_exp(&(*head));
+  node->right = parser_parse_exp(&(*head), &(*symtab));
 
   return node;
 }
 
 CtmAstNode_t *
-parser_parse_arg(CtmTokenNode_t ** head)
+parser_parse_arg(CtmTokenNode_t ** head, CtmSymtab_t ** symtab)
 {
   if ((*head)->token.type == LPAREN_TK) return NULL;
 
@@ -109,6 +109,9 @@ parser_parse_arg(CtmTokenNode_t ** head)
   if (is_dtype((*head)->prior->token.type))
     {
       list_eat(&(*head), IDENTIFIER_TK);
+
+      insert_symtab(&(*symtab), (*head)->token.type, (*head)->token.value);
+
       if ((*head)->token.type != LPAREN_TK)
         list_eat(&(*head), COMMA_TK);
     }
@@ -123,13 +126,13 @@ parser_parse_arg(CtmTokenNode_t ** head)
       parser_error((*head)->token);
     }
 
-  node->next = parser_parse_arg(&(*head));
+  node->next = parser_parse_arg(&(*head), &(*symtab));
 
   return node;
 }
 
 CtmAstNode_t *
-parser_parse_block(CtmTokenNode_t ** head)
+parser_parse_block(CtmTokenNode_t ** head, CtmSymtab_t ** symtab)
 {
   if ((*head)->token.type == LBRACE_TK) return NULL;
 
@@ -144,28 +147,28 @@ parser_parse_block(CtmTokenNode_t ** head)
   switch ((*head)->token.type)
     {
     case RETURN_TK:
-      node = parser_parse_return(&(*head));
+      node = parser_parse_return(&(*head), &(*symtab));
       break;
     case IDENTIFIER_TK:
-      node = parser_parse_id(&(*head));
+      node = parser_parse_id(&(*head), &(*symtab));
       break;
     default:
       list_eat(&(*head), (*head)->token.type);
       break;
     }
 
-  node->left = parser_parse_block(&(*head));
+  node->left = parser_parse_block(&(*head), &(*symtab));
 
   return node;
 }
 
 CtmAstNode_t *
-parser_parse_id(CtmTokenNode_t ** head)
+parser_parse_id(CtmTokenNode_t ** head, CtmSymtab_t ** symtab)
 {
   CtmAstNode_t * node = init_node((*head)->token);
   node->typeP = init_node((*head)->prior->token);
 
-//  insert_symtab(&symtab, (*head)->token.type, (*head)->token.value);
+  insert_symtab(&(*symtab), (*head)->token.type, (*head)->token.value);
 
   list_eat(&(*head), (*head)->token.type == MAIN_TK ? MAIN_TK : IDENTIFIER_TK);
 
@@ -175,12 +178,12 @@ parser_parse_id(CtmTokenNode_t ** head)
 
       list_eat(&(*head), RPAREN_TK);
 
-      node->next = parser_parse_arg(&(*head));
+      node->next = parser_parse_arg(&(*head), &(*symtab));
 
       list_eat(&(*head), LPAREN_TK);
       list_eat(&(*head), RBRACE_TK);
 
-      node->right = parser_parse_block(&(*head));
+      node->right = parser_parse_block(&(*head), &(*symtab));
 
       list_eat(&(*head), LBRACE_TK);
     }
@@ -189,7 +192,7 @@ parser_parse_id(CtmTokenNode_t ** head)
       node->type = ASSIG;
       list_eat(&(*head), EQUAL_TK);
 
-      node->right = parser_parse_exp(&(*head));
+      node->right = parser_parse_exp(&(*head), &(*symtab));
 
       list_eat(&(*head), SEMICOLON_TK);
     }
@@ -202,9 +205,9 @@ parser_parse_id(CtmTokenNode_t ** head)
 }
 
 void
-parser (CtmParser_t ** parser, CtmTokenNode_t * head)
+parser (CtmParser_t ** parser, CtmTokenNode_t * head, CtmSymtab_t ** symtab)
 {
-  add_ast(&(*parser)->ast, parser_parse_id(&head->next));
+  add_ast(&(*parser)->ast, parser_parse_id(&head->next, &(*symtab)));
 }
 
 void

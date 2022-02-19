@@ -14,7 +14,12 @@ struct symbol_table
 
 
 void
-insert_symtab(CtmSymtab_t **, TokenType_t, char *);
+insert_symtab(CtmSymtab_t ** symtab, TokenType_t type, char * ch);
 
+void
+print_symtab(CtmSymtab_t * symtab);
+
+_Bool
+check_symtab(CtmSymtab_t *, char *);
 
 #endif

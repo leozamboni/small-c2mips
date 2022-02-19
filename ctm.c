@@ -8,6 +8,7 @@ ctm(FILE * fl)
 {
   Ctm_t * ctm;
   create(&ctm);
+  puts("asd");
   ctm->scanner->fl = fl;
 
   compiler(&ctm);
@@ -34,7 +35,9 @@ compiler(Ctm_t ** ctm)
 {
   scanner_file(&(*ctm)->scanner);
   //output_list((*ctm)->scanner->list->head);
-  parser(&(*ctm)->parser, (*ctm)->scanner->list->head);
+  parser(&(*ctm)->parser, (*ctm)->scanner->list->head, &(*ctm)->symtab);
+  puts("");
+  print_symtab((*ctm)->symtab);
   puts("");
   print_ast((*ctm)->parser->ast->head);
   puts("");
