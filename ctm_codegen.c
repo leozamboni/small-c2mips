@@ -26,17 +26,42 @@ code_gen_main(CtmAstNode_t * ast, size_t saved_regs)
         }
     else if (ast->type == ASSIG)
         {
-            printf("li $s%zu, %s\n", saved_regs, ast->right->value);
+            if (ast->right->dtype == RPAREN_TK)
+                {
+                    printf("li $s%zu, %s\n", saved_regs, ast->right->right->value);
+                }
+            else
+                {
+                    printf("li $s%zu, %s\n", saved_regs, ast->right->value);
+                }
         }
-    else if (ast->type == EXP && ast->dtype != CONSTANT_TK)
+    else if (ast->type == EXP
+             && ast->dtype != CONSTANT_TK
+             && ast->dtype != LPAREN_TK
+             && ast->dtype != RPAREN_TK)
         {
             if (ast->dtype == PLUS_TK)
                 {
-                    printf("addi $s%zu, $s%zu, %s\n", saved_regs, saved_regs, ast->right->value);
+                    if (ast->right->dtype == RPAREN_TK)
+                        {
+                            printf("addi $s%zu, $s%zu, %s\n", saved_regs, saved_regs, ast->right->right->value);
+                        }
+                    else
+                        {
+                            printf("addi $s%zu, $s%zu, %s\n", saved_regs, saved_regs, ast->right->value);
+                        }
                 }
             else if (ast->dtype == MULT_TK)
                 {
-                    printf("mul $s%zu, $s%zu, %s\n", saved_regs, saved_regs, ast->right->value);
+                    if (ast->right->dtype == RPAREN_TK)
+                        {
+                            printf("mul $s%zu, $s%zu, %s\n", saved_regs, saved_regs, ast->right->right->value);
+                        }
+                    else
+                        {
+                            printf("mul $s%zu, $s%zu, %s\n", saved_regs, saved_regs, ast->right->value);
+
+                        }
                 }
             else
                 {

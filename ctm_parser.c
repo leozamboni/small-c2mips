@@ -25,41 +25,49 @@ parser_parse_exp(CtmTokenNode_t ** head, CtmSymtab_t ** symtab)
     CtmAstNode_t * node = init_node((*head)->token);
     node->type = EXP;
 
-    if ((*head)->prior->token.type == EQUAL_TK)
+    if ((*head)->prior->token.type == RPAREN_TK)
         {
-            if ((*head)->token.type == RPAREN_TK)
+            list_eat(&(*head),
+                     (*head)->token.type == IDENTIFIER_TK ?
+                     IDENTIFIER_TK : CONSTANT_TK);
+        }
+    else if ((*head)->prior->token.type == LPAREN_TK)
+        {
+            if (!is_operator((*head)->token.type))
                 {
-                    while ((*head)->token.type != LPAREN_TK)
+                    parser_error((*head)->token);
+                }
+            list_eat(&(*head), (*head)->token.type);
+        }
+    else if ((*head)->token.type == RPAREN_TK)
+        {
+            CtmTokenNode_t * aux = (*head);
+            do
+                {
+                    aux = aux->next;
+                    if (!aux || aux->token.type == SEMICOLON_TK)
                         {
-                            if ((*head)->token.type == SEMICOLON_TK)
-                                {
-                                    parser_error((*head)->token);
-                                }
-                            if ((*head)->prior->token.type == RPAREN_TK
-                                    || is_operator((*head)->prior->token.type))
-                                {
-                                    list_eat(&(*head),
-                                             (*head)->token.type == IDENTIFIER_TK ?
-                                             IDENTIFIER_TK : CONSTANT_TK);
-                                }
-                            if ((*head)->prior->token.type == CONSTANT_TK
-                                    || (*head)->prior->token.type == IDENTIFIER_TK)
-                                {
-                                    if (!is_operator((*head)->token.type))
-                                        {
-                                            parser_error((*head)->token);
-                                        }
-                                    list_eat(&(*head), (*head)->token.type);
-                                }
+                            parser_error((*head)->token);
                         }
-                    list_eat(&(*head), LPAREN_TK);
                 }
-            else
+            while(aux->token.type != LPAREN_TK);
+
+            list_eat(&(*head), RPAREN_TK);
+        }
+    else if ((*head)->token.type == LPAREN_TK)
+        {
+            CtmTokenNode_t * aux = (*head);
+            do
                 {
-                    list_eat(&(*head),
-                             (*head)->token.type == IDENTIFIER_TK ?
-                             IDENTIFIER_TK : CONSTANT_TK);
+                    aux = aux->prior;
+                    if (!aux || aux->token.type == EQUAL_TK)
+                        {
+                            parser_error((*head)->token);
+                        }
                 }
+            while(aux->token.type != RPAREN_TK);
+
+            list_eat(&(*head), LPAREN_TK);
         }
     else if ((*head)->prior->token.type == LPAREN_TK)
         {
@@ -237,7 +245,7 @@ print_ast_node(CtmAstNode_t * ast)
     print_ast_node(ast->typeP);
     if (ast->value) printf("%s ", ast->value);
     if (ast->dtype) printf("%s ", get_token_string(ast->dtype));
-    if (ast->type) printf("%u ", ast->type);
+    //if (ast->type) printf("%u ", ast->type);
     puts("");
     print_ast_node(ast->next);
     print_ast_node(ast->right);
