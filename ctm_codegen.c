@@ -2,82 +2,80 @@
 
 #include <stdio.h>
 
-/* need refactor */
 void
 code_gen_main(CtmAstNode_t * ast, size_t saved_regs)
 {
-  if (!ast) return;
-  code_gen_main(ast->typeP, saved_regs);
+    if (!ast) return;
+    code_gen_main(ast->typeP, saved_regs);
 
-  if (ast->type == MAIN && ast->dtype == MAIN_TK)
-    {
-      printf("main:\n");
-    }
-  else if (ast->type == ARG && ast->dtype != VOID_TK)
-    {
-      size_t regI = 0;
-      CtmAstNode_t * aux = ast;
-      while (aux->type != ARG)
-        {
-          printf("a - mov $t%zu, 0\n", regI++);
-          if (regI == 7) break;
-          aux = aux->next;
-        }
-    }
-  else if (ast->type == ASSIG)
-    {
-      ast = ast->right;
-      printf("li $s%zu, %s\n", saved_regs, ast->value);
-    }
-  else if (ast->type == EXP)
-    {
-      if (ast->dtype == PLUS_TK)
-        {
-          ast = ast->right;
-          printf("addi $s%zu, $s%zu, %s\n", saved_regs, saved_regs, ast->value);
-        }
-      else if (ast->dtype == MULT_TK)
-        {
-          ast = ast->right;
-          printf("mul $s%zu, $s%zu, %s\n", saved_regs, saved_regs, ast->value);
-        }
-      else
-        {
-          printf("EXPRESSION NOT FOUND\n");
-        }
-    }
-  else if (ast->type == RET)
-    {
-      if (ast->dtype == RETURN_TK)
-        {
-          printf("li $v0, 10\n"\
-                 "syscall\n");
-        }
-    }
 
-  code_gen_main(ast->next, saved_regs);
-  code_gen_main(ast->right, saved_regs);
-  code_gen_main(ast->left, saved_regs);
+    if (ast->type == MAIN && ast->dtype == MAIN_TK)
+        {
+            printf("main:\n");
+        }
+    else if (ast->type == ARG && ast->dtype != VOID_TK)
+        {
+            size_t regI = 0;
+            CtmAstNode_t * aux = ast;
+            while (aux->type != ARG)
+                {
+                    printf("li $t%zu, 0\n", regI++);
+                    if (regI == 7) break;
+                    aux = aux->next;
+                }
+        }
+    else if (ast->type == ASSIG)
+        {
+            printf("li $s%zu, %s\n", saved_regs, ast->right->value);
+        }
+    else if (ast->type == EXP && ast->dtype != CONSTANT_TK)
+        {
+            if (ast->dtype == PLUS_TK)
+                {
+                    printf("addi $s%zu, $s%zu, %s\n", saved_regs, saved_regs, ast->right->value);
+                }
+            else if (ast->dtype == MULT_TK)
+                {
+                    printf("mul $s%zu, $s%zu, %s\n", saved_regs, saved_regs, ast->right->value);
+                }
+            else
+                {
+                    printf("EXPRESSION NOT FOUND\n");
+                }
+        }
+    else if (ast->type == RET)
+        {
+            if (ast->dtype == RETURN_TK)
+                {
+                    printf("li $v0, 10\n"\
+                           "syscall\n");
+                }
+        }
+
+
+    code_gen_main(ast->next, saved_regs);
+    code_gen_main(ast->right, saved_regs);
+    code_gen_main(ast->left, saved_regs);
 }
 
 void
 code_gen_gen(CtmExpList_t * head)
 {
-  size_t saved_regs = 0;
-  switch(head->ast->type)
-    {
-    case MAIN:
-      code_gen_main(head->ast, saved_regs);
-      break;
-    default:
-      return;
-    }
+    size_t saved_regs = 0;
+    switch(head->ast->type)
+        {
+        case MAIN:
+            code_gen_main(head->ast, saved_regs);
+            break;
+        default:
+            return;
+        }
 }
 
 void
 code_gen(CtmAst_t * ast)
 {
-  printf(".text\n" \
-         ".globl main\n");
-  code_gen_gen(ast->head);
+    printf(".text\n" \
+           ".globl main\n");
+    code_gen_gen(ast->head);
 }

@@ -7,9 +7,9 @@ typedef struct symbol_table CtmSymtab_t;
 
 struct symbol_table
 {
-  TokenType_t type;
-  char * str;
-  CtmSymtab_t * next;
+    TokenType_t type;
+    char * str;
+    CtmSymtab_t * next;
 };
 
 

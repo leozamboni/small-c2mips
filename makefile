@@ -23,4 +23,4 @@ clean:
 	-rm -f *.o *.tmp *.orig $(TARGET)
 
 format:
-	astyle --style=gnu --indent=spaces=2 *.c *.h
+	astyle --style=gnu --indent=spaces=4 *.c *.h

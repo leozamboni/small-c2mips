@@ -9,7 +9,7 @@ typedef struct parser CtmParser_t;
 
 struct parser
 {
-  CtmAst_t * ast;
+    CtmAst_t * ast;
 };
 
 void

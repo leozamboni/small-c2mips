@@ -6,10 +6,10 @@
 int
 main(int argc, const char ** argv)
 {
-  FILE *fl = fopen(argv[1], "r");
-  if (!fl) exit(EXIT_FAILURE);
+    FILE *fl = fopen(argv[1], "r");
+    if (!fl) exit(EXIT_FAILURE);
 
-  ctm(fl);
+    ctm(fl);
 
-  return 0;
+    return 0;
 }

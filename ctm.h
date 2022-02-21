@@ -9,9 +9,9 @@ typedef struct ctm Ctm_t;
 
 struct ctm
 {
-  CtmScanner_t * scanner;
-  CtmSymtab_t * symtab;
-  CtmParser_t * parser;
+    CtmScanner_t * scanner;
+    CtmSymtab_t * symtab;
+    CtmParser_t * parser;
 };
 
 void ctm(FILE *);
