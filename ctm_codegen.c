@@ -1,24 +1,24 @@
-/*              
+/*
  *⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠤⠖⠚⢉⣩⣭⡭⠛⠓⠲⠦⣄⡀⠀⠀⠀⠀⠀⠀⠀
  *⠀⠀⠀⠀⠀⠀⠀⢀⡴⠋⠁⠀⠀⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠳⢦⡀⠀⠀⠀⠀
  *⠀⠀⠀⠀⠀⢀⡴⠃⢀⡴⢳⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣆⠀⠀⠀
  *⠀⠀⠀⠀⠀⡾⠁⣠⠋⠀⠈⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢧⠀⠀
  *⠀⠀⠀⠀⣸⠁⢰⠃⠀⠀⠀⠈⢣⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣇⠀
- *⠀⠀⠀⠀⡇⠀⡾⡀⠀⠀⠀⠀⣀⣹⣆⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀,----,               
- *⠀⠀⠀⢸⠃⢀⣇⡈⠀⠀⠀⠀⠀⠀⢀⡑⢄⡀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀,/⠀⠀⠀.`|⠀⠀⠀⠀⠀⠀⠀____   
- *⠀⠀⠀⢸⠀⢻⡟⡻⢶⡆⠀⠀⠀⠀⡼⠟⡳⢿⣦⡑⢄⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀,----..⠀⠀⠀⠀⠀,`⠀⠀⠀.'⠀⠀:⠀⠀⠀⠀⠀,'⠀, `. 
- *⠀⠀⠀⣸⠀⢸⠃⡇⢀⠇⠀⠀⠀⠀⠀⡼⠀⠀⠈⣿⡗⠂⠀⠀⠀⠀⠀⠀⠀⢸⠁⠀⠀/⠀⠀⠀/⠀⠀\⠀⠀⠀;⠀⠀⠀;⠀⠀⠀ /⠀⠀⠀,-+-,.'⠀_⠀| 
- *⠀⠀⠀⡏⠀⣼⠀⢳⠊⠀⠀⠀⠀⠀⠀⠱⣀⣀⠔⣸⠁⠀⠀⠀⠀⠀⠀⠀⢠⡟⠀⠀⠀|⠀⠀:⠀⠀⠀⠀:.'___,/⠀ ⠀ ,'⠀,-+-.⠀;⠀⠀⠀,⠀|| 
- *⠀⠀⠀⡇⢀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⢸⠃⠀⠀⠀.⠀⠀|⠀;. /⠀|⠀⠀⠀:⠀⠀⠀ |⠀,--.'|'⠀   |  ;| 
- *⠀⠀⠀⢸⠃⠘⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠁⠀⠀⢀⠀⠀⠀⠀⠀⣾⠀⠀⠀.⠀⠀;⠀/--` ;⠀⠀⠀|.';  ;⠀|⠀⠀|⠀⠀,',⠀|⠀ ': 
- *⠀⠀⠀⣸⠀⠀⠹⡄⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⡞⠀⠀⠀⠸⠀⠀⠀⠀⠀⡇⠀⠀⠀;⠀⠀|⠀;⠀⠀⠀`----'⠀⠀|⠀|⠀|⠀⠀|⠀/⠀ |⠀|⠀⠀|| 
- *⠀⠀⠀⡏⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⠀⢀⣠⢶⡇⠀⠀⢰⡀⠀⠀⠀⠀⠀⡇⠀⠀⠀|⠀⠀:⠀|⠀⠀⠀⠀⠀⠀⠀'⠀ :⠀;⠀'⠀⠀| :⠀⠀|⠀:⠀⠀|, 
- *⠀⠀⢰⠇⡄⠀⠀⠀⡿⢣⣀⣀⣀⡤⠴⡞⠉⠀⢸⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⣧⠀⠀⠀.⠀⠀|⠀'___⠀⠀⠀⠀⠀|⠀ |⠀'⠀;⠀⠀. |⠀ ;⠀|--'  
- *⠀⠀⣸⠀⡇⠀⠀⠀⠀⠀⠀⠉⠀⠀⠀⢹⠀⠀⢸⠀⠀⢀⣿⠇⠀⠀⠀⠁⠀⢸⠀⠀⠀'⠀⠀;⠀: .'|⠀⠀⠀⠀'⠀⠀:⠀|⠀|⠀⠀: |⠀⠀|⠀,     
- *⠀⠀⣿⠀⡇⠀⠀⠀⠀⠀⢀⡤⠤⠶⠶⠾⠤⠄⢸⠀⡀⠸⣿⣀⠀⠀⠀⠀⠀⠈⣇⠀⠀'⠀⠀|⠀'/⠀:⠀⠀⠀⠀ ;⠀ |.'⠀ |⠀ : '⠀ |/      
- *⠀⠀⡇⠀⡇⠀⠀⡀⠀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠸⡌⣵⡀⢳⡇⠀⠀⠀⠀⠀⠀⢹⠀⠀|⠀⠀:⠀⠀⠀/⠀⠀⠀⠀⠀'---'⠀ ⠀;⠀⠀| |`-'       
- *⠀⠀⡇⠀⠇⠀⠀⡇⡸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠮⢧⣀⣻⢂⠀⠀⠀⠀⠀⠀⢧⠀⠀\⠀⠀\ .'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀|⠀⠀;/           
- *⠀⠀⣇⠀⢠⠀⠀⢳⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡎⣆⠀⠀⠀⠀⠀⠘⠀⠀⠀`---`⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀'---'            
+ *⠀⠀⠀⠀⡇⠀⡾⡀⠀⠀⠀⠀⣀⣹⣆⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀,----,
+ *⠀⠀⠀⢸⠃⢀⣇⡈⠀⠀⠀⠀⠀⠀⢀⡑⢄⡀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀,/⠀⠀⠀.`|⠀⠀⠀⠀⠀⠀⠀____
+ *⠀⠀⠀⢸⠀⢻⡟⡻⢶⡆⠀⠀⠀⠀⡼⠟⡳⢿⣦⡑⢄⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀,----..⠀⠀⠀⠀⠀,`⠀⠀⠀.'⠀⠀:⠀⠀⠀⠀⠀,'⠀, `.
+ *⠀⠀⠀⣸⠀⢸⠃⡇⢀⠇⠀⠀⠀⠀⠀⡼⠀⠀⠈⣿⡗⠂⠀⠀⠀⠀⠀⠀⠀⢸⠁⠀⠀/⠀⠀⠀/⠀⠀\⠀⠀⠀;⠀⠀⠀;⠀⠀⠀ /⠀⠀⠀,-+-,.'⠀_⠀|
+ *⠀⠀⠀⡏⠀⣼⠀⢳⠊⠀⠀⠀⠀⠀⠀⠱⣀⣀⠔⣸⠁⠀⠀⠀⠀⠀⠀⠀⢠⡟⠀⠀⠀|⠀⠀:⠀⠀⠀⠀:.'___,/⠀ ⠀ ,'⠀,-+-.⠀;⠀⠀⠀,⠀||
+ *⠀⠀⠀⡇⢀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⢸⠃⠀⠀⠀.⠀⠀|⠀;. /⠀|⠀⠀⠀:⠀⠀⠀ |⠀,--.'|'⠀   |  ;|
+ *⠀⠀⠀⢸⠃⠘⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠁⠀⠀⢀⠀⠀⠀⠀⠀⣾⠀⠀⠀.⠀⠀;⠀/--` ;⠀⠀⠀|.';  ;⠀|⠀⠀|⠀⠀,',⠀|⠀ ':
+ *⠀⠀⠀⣸⠀⠀⠹⡄⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⡞⠀⠀⠀⠸⠀⠀⠀⠀⠀⡇⠀⠀⠀;⠀⠀|⠀;⠀⠀⠀`----'⠀⠀|⠀|⠀|⠀⠀|⠀/⠀ |⠀|⠀⠀||
+ *⠀⠀⠀⡏⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⠀⢀⣠⢶⡇⠀⠀⢰⡀⠀⠀⠀⠀⠀⡇⠀⠀⠀|⠀⠀:⠀|⠀⠀⠀⠀⠀⠀⠀'⠀ :⠀;⠀'⠀⠀| :⠀⠀|⠀:⠀⠀|,
+ *⠀⠀⢰⠇⡄⠀⠀⠀⡿⢣⣀⣀⣀⡤⠴⡞⠉⠀⢸⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⣧⠀⠀⠀.⠀⠀|⠀'___⠀⠀⠀⠀⠀|⠀ |⠀'⠀;⠀⠀. |⠀ ;⠀|--'
+ *⠀⠀⣸⠀⡇⠀⠀⠀⠀⠀⠀⠉⠀⠀⠀⢹⠀⠀⢸⠀⠀⢀⣿⠇⠀⠀⠀⠁⠀⢸⠀⠀⠀'⠀⠀;⠀: .'|⠀⠀⠀⠀'⠀⠀:⠀|⠀|⠀⠀: |⠀⠀|⠀,
+ *⠀⠀⣿⠀⡇⠀⠀⠀⠀⠀⢀⡤⠤⠶⠶⠾⠤⠄⢸⠀⡀⠸⣿⣀⠀⠀⠀⠀⠀⠈⣇⠀⠀'⠀⠀|⠀'/⠀:⠀⠀⠀⠀ ;⠀ |.'⠀ |⠀ : '⠀ |/
+ *⠀⠀⡇⠀⡇⠀⠀⡀⠀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠸⡌⣵⡀⢳⡇⠀⠀⠀⠀⠀⠀⢹⠀⠀|⠀⠀:⠀⠀⠀/⠀⠀⠀⠀⠀'---'⠀ ⠀;⠀⠀| |`-'
+ *⠀⠀⡇⠀⠇⠀⠀⡇⡸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠮⢧⣀⣻⢂⠀⠀⠀⠀⠀⠀⢧⠀⠀\⠀⠀\ .'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀|⠀⠀;/
+ *⠀⠀⣇⠀⢠⠀⠀⢳⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡎⣆⠀⠀⠀⠀⠀⠘⠀⠀⠀`---`⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀'---'
  *⠀⠀⢻⠀⠈⠰⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⠘⢮⣧⡀⠀⠀⠀⠀⠀       ⠀
  *⠀⠀⠸⡆⠀⠀⠇⣾⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠆⠀⠀⠀⠀⠀⠀⠀⠙⠳⣄⡀⢢⡀⠀⠀⠀⠀⠀     ⠀
  *
@@ -38,15 +38,15 @@
  *  you should have received a copy of the gnu general public license
  *  along with this program.  if not, see <http://www.gnu.org/licenses/>.
  */
-#include "ctm_ast.h"
+#include "ctm_codegen.h"
 
 #include <stdio.h>
 
 void
-code_gen_main(CtmAstNode_t * ast, size_t saved_regs)
+code_gen_main(CtmAstNode_t * ast, CtmSymtab_t * symtab, size_t reg)
 {
     if (!ast) return;
-    code_gen_main(ast->typeP, saved_regs);
+    code_gen_main(ast->typeP, symtab, reg);
 
 
     if (ast->type == MAIN && ast->dtype == MAIN_TK)
@@ -55,24 +55,19 @@ code_gen_main(CtmAstNode_t * ast, size_t saved_regs)
         }
     else if (ast->type == ARG && ast->dtype != VOID_TK)
         {
-            size_t regI = 0;
-            CtmAstNode_t * aux = ast;
-            while (aux->type != ARG)
-                {
-                    printf("li $t%zu, 0\n", regI++);
-                    if (regI == 7) break;
-                    aux = aux->next;
-                }
+            reg = get_symbol_register(symtab, ast->value);
+            printf("li $t%zu, 0\n", reg);
         }
     else if (ast->type == ASSIG)
         {
+            reg = get_symbol_register(symtab, ast->value);
             if (ast->right->dtype == RPAREN_TK)
                 {
-                    printf("li $s%zu, %s\n", saved_regs, ast->right->right->value);
+                    printf("li $s%zu, %s\n", reg, ast->right->right->value);
                 }
             else
                 {
-                    printf("li $s%zu, %s\n", saved_regs, ast->right->value);
+                    printf("li $s%zu, %s\n", reg, ast->right->value);
                 }
         }
     else if (ast->type == EXP
@@ -84,22 +79,22 @@ code_gen_main(CtmAstNode_t * ast, size_t saved_regs)
                 {
                     if (ast->right->dtype == RPAREN_TK)
                         {
-                            printf("addi $s%zu, $s%zu, %s\n", saved_regs, saved_regs, ast->right->right->value);
+                            printf("addi $s%zu, $s%zu, %s\n", reg, reg, ast->right->right->value);
                         }
                     else
                         {
-                            printf("addi $s%zu, $s%zu, %s\n", saved_regs, saved_regs, ast->right->value);
+                            printf("addi $s%zu, $s%zu, %s\n", reg, reg, ast->right->value);
                         }
                 }
             else if (ast->dtype == MULT_TK)
                 {
                     if (ast->right->dtype == RPAREN_TK)
                         {
-                            printf("mul $s%zu, $s%zu, %s\n", saved_regs, saved_regs, ast->right->right->value);
+                            printf("mul $s%zu, $s%zu, %s\n", reg, reg, ast->right->right->value);
                         }
                     else
                         {
-                            printf("mul $s%zu, $s%zu, %s\n", saved_regs, saved_regs, ast->right->value);
+                            printf("mul $s%zu, $s%zu, %s\n", reg, reg, ast->right->value);
 
                         }
                 }
@@ -117,20 +112,18 @@ code_gen_main(CtmAstNode_t * ast, size_t saved_regs)
                 }
         }
 
-
-    code_gen_main(ast->next, saved_regs);
-    code_gen_main(ast->right, saved_regs);
-    code_gen_main(ast->left, saved_regs);
+    code_gen_main(ast->next, symtab, reg);
+    code_gen_main(ast->right, symtab, reg);
+    code_gen_main(ast->left, symtab, reg);
 }
 
 void
-code_gen_gen(CtmExpList_t * head)
+code_gen_gen(CtmExpList_t * head, CtmSymtab_t * symtab)
 {
-    size_t saved_regs = 0;
     switch(head->ast->type)
         {
         case MAIN:
-            code_gen_main(head->ast, saved_regs);
+            code_gen_main(head->ast, symtab, 0);
             break;
         default:
             return;
@@ -138,9 +131,9 @@ code_gen_gen(CtmExpList_t * head)
 }
 
 void
-code_gen(CtmAst_t * ast)
+code_gen(CtmAst_t * ast, CtmSymtab_t * symtab)
 {
     printf(".text\n" \
            ".globl main\n");
-    code_gen_gen(ast->head);
+    code_gen_gen(ast->head, symtab);
 }

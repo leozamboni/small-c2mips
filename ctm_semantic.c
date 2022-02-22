@@ -38,18 +38,19 @@
  *  you should have received a copy of the gnu general public license
  *  along with this program.  if not, see <http://www.gnu.org/licenses/>.
  */
-#include <stdio.h>
-#include <stdlib.h>
+#include "ctm_semantic.h"
 
-#include "ctm.h"
-
-int
-main(int argc, const char ** argv)
+void
+semantic_register(CtmSymtab_t * symtab, size_t regs)
 {
-    FILE *fl = fopen(argv[1], "r");
-    if (!fl) exit(EXIT_FAILURE);
+    if (!symtab) return;
+    symtab->reg = regs++;
+    semantic_register(symtab->next, regs);
+}
 
-    ctm(fl);
-
-    return 0;
+void
+semantic(CtmSymtab_t * symtab, CtmAst_t * ast)
+{
+    semantic_register(symtab, 0);
+    //semantic_analysis(CtmSymtab_t * symtab, CtmAstNode_t * ast);
 }

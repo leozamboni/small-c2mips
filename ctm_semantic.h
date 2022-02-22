@@ -38,18 +38,13 @@
  *  you should have received a copy of the gnu general public license
  *  along with this program.  if not, see <http://www.gnu.org/licenses/>.
  */
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef CTM_SEMANTIC_H
+#define CTM_SEMANTIC_H
 
-#include "ctm.h"
+#include "ctm_symtab.h"
+#include "ctm_ast.h"
 
-int
-main(int argc, const char ** argv)
-{
-    FILE *fl = fopen(argv[1], "r");
-    if (!fl) exit(EXIT_FAILURE);
+void
+semantic(CtmSymtab_t *, CtmAst_t *);
 
-    ctm(fl);
-
-    return 0;
-}
+#endif
